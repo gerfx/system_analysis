@@ -1,6 +1,15 @@
 import csv
 import json
+import argparse
 from jsonpath_ng import jsonpath, parse
+
+
+def arg_parser():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('name_of_def', type=str, choices=['csv', 'json'], help='Input name of def (csv or json)')
+    parser.add_argument('value', nargs='+', type=str, help='Input row/column number or JSONPath example - $.str.str1')
+    args = parser.parse_args()
+    return args
 
 
 def csv_reader(row, column):
@@ -21,14 +30,14 @@ def json_reader(jpath):
 
 
 def main():
-    #row, column = map(int, input().split())
-    row, column = 1, 2
-    print(csv_reader(row, column))
-    #jpath = '$.str.str1'
-    #print(json_reader(jpath))
-    return
+    args = arg_parser()
+    if args.name_of_def == 'csv':
+        row, column = map(int, args.value)
+        print(csv_reader(row, column))
+    else:
+        jpath = args.value[0]
+        print(json_reader(jpath))
 
 
 if __name__ == "__main__":
     main()
-
