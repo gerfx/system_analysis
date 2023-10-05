@@ -6,9 +6,7 @@ def task(path):
     with open(path, newline="") as csvfile:
         filedata = list(csv.reader(csvfile, delimiter=","))
 
-
-    def has_grand_relative(tree):
-        r4, r5, r3 = set(), set(), set()
+    def r3_r4_r5_counting(tree):
         for node in tree:
             for child in tree[node]:
                 if len(tree[node]) > 1:
@@ -31,7 +29,7 @@ def task(path):
 
     edges = filedata
     tree = {}
-    r1, r2 = set(), set()
+    r1, r2, r3, r4, r5 = set(), set(), set(), set(), set()
     a1, a2, a3, a4, a5 = dict(), dict(), dict(), dict(), dict()
 
     for parent, child in edges:
@@ -48,14 +46,19 @@ def task(path):
             tree[parent] = []
         tree[parent].append(child)
 
-    r3, r4, r5 = has_grand_relative(tree)
+    r3, r4, r5 = r3_r4_r5_counting(tree)
 
     node_list = sorted(list(set(item for edge in edges for item in edge)))
-    print("Node\t a1\t a2\t a3\t a4\t a5")
+    print("Node\t r1\t r2\t r3\t r4\t r5")
     for node in node_list:
         print(
             f"{node}\t {a1.get(node, 0)}\t {a2.get(node, 0)}\t {a3.get(node, 0)}\t {a4.get(node, 0)}\t {a5.get(node, 0)}")
 
 
 if __name__ == "__main__":
-    task(sys.argv[1])
+    try:
+        task(sys.argv[1])
+    except IndexError:
+        print("Print path to CSV file")
+
+
