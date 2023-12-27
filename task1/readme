@@ -1,0 +1,6 @@
+ Пример запуска для csv метода с пересечением по 1 строке и 2 столбцу
+ python task.py csv 1 2
+ Для JSON метода
+ python task.py json $.str.str1
+
+
