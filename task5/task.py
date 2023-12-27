@@ -12,8 +12,10 @@ def task():
     print("Ранжировка 1: ", range_table1,"Ранжировка 2: ",  range_table2, sep="\n\n")
     ans = agreed_cluster_range(range_table1, range_table2)
     print("Ядра провтиворечий:")
-    for el in ans:
+    for el in ans[0]:
         print(new_data1[el[1]], new_data2[el[0]])
+    print("Cогласующая кластерная ранжировка:",ans[1] )
+
 
 def data_to_range_table(data):
     range_dict = {}
@@ -49,13 +51,23 @@ def agreed_cluster_range(A, B):
     AB = A * B
     A_T_B_T = A_T * B_T
     summ_matr = AB + A_T_B_T
-
+    sogl_matr = []
     ans = []
+    temp = []
     for i in range(len(A)):
         for j in range(i):
             if summ_matr[i][j] == 0:
                 ans.append((i, j))
-    return ans
+    for i in range(len(summ_matr)):
+        f = False
+        for j in range(i, len(summ_matr)):
+            if summ_matr[i][j] == 0:
+                f = True
+                temp = [i + 1, j + 1]
+                sogl_matr.append(temp)
+        if i + 1 not in temp:
+            sogl_matr.append(i + 1)
+    return ans, sogl_matr
 
 
 def main():
