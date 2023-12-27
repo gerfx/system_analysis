@@ -6,7 +6,7 @@ def task():
     f1 = open("Ранжировка  A.json")
     data1 = json.load(f1)
     range_table1, new_data1 = data_to_range_table(data1)
-    f2 = open("Ранжировка  C.json")
+    f2 = open("Ранжировка  B.json")
     data2 = json.load(f2)
     range_table2, new_data2 = data_to_range_table(data2)
     print("Ранжировка 1: ", range_table1,"Ранжировка 2: ",  range_table2, sep="\n\n")
